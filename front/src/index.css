@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap');
+
+body {
+  font-family: "Oswald", sans-serif;
+}
+
+:root {
+  font-family: "Oswald", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1c1c1c;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --primary-color: #fff;
+  --background-color: #1c1c1c;
+  --text-color: rgba(255, 255, 255, 0.87);
+  --secondary-background-color: #1c1c1c;
+  --hover-color: #a83eff;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Links */
+a {
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--hover-color);
+}
+
+/* Corpo do documento */
+body {
+
+  background-color: var(--background-color);
+  color: var(--text-color);
+  width: 100%;
+ 
+  
+}
+
+/* Cabeçalhos */
+h1, h2, h3 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+/* h1 {
+  font-size: 3rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+} */
+
+
+
+input, textarea {
+  background-color: #333;
+  border: 1px solid var(--primary-color);
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--hover-color);
+}
+
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+li {
+  margin: 10px 0;
+}
+
