@@ -25,9 +25,10 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final LoginUtil loginUtil;
 
-    @GetMapping("/test")
-    public ResponseEntity<UsuarioEntity> getUsuarioTest(@RequestAttribute("loggedUser") UsuarioEntity usuarioEntity) {
-        return ResponseEntity.ok(usuarioEntity);
+    @GetMapping
+    public ResponseEntity<ShowUsuarioDTO> getUsuario(@RequestAttribute("loggedUser") UsuarioEntity usuarioEntity) {
+        ShowUsuarioDTO usuario = usuarioService.fillShowUsuario(usuarioEntity);
+        return ResponseEntity.ok(usuario);
     }
 
     @PostMapping("/cadastro")
@@ -39,12 +40,6 @@ public class UsuarioController {
         } catch (NoSuchAlgorithmException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-    }
-
-    @GetMapping
-    public ResponseEntity<ShowUsuarioDTO> getUsuario(@RequestHeader String authorization) {
-        ShowUsuarioDTO usuario = usuarioService.getUsuario(loginUtil.extractLogin(authorization));
-        return ResponseEntity.ok(usuario);
     }
 
     @GetMapping("/all")
@@ -65,7 +60,7 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping
     public ResponseEntity<ShowUsuarioDTO> atualizarUsuarioParcial(
             @RequestHeader String authorization,
             @RequestBody Map<String, Object> atualizacoes

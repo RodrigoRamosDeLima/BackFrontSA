@@ -73,7 +73,7 @@ export default function SideBar({ handleModalChange, handlePageChange, page }) {
             >
               Bar Bot
             </MenuItem>
-            <MenuItem
+            {/* <MenuItem
               className={classNames({ active: page === 'explore' })}
               onClick={() => handlePageChange('explore')}
             >
@@ -90,7 +90,7 @@ export default function SideBar({ handleModalChange, handlePageChange, page }) {
               onClick={() => handlePageChange('search')}
             >
               Pesquisa
-            </MenuItem>
+            </MenuItem> */}
           </Menu>
         </NavMenu>
 

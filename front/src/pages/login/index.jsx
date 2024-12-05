@@ -4,6 +4,7 @@ import {
     Form,
     FormBottom,
     FormContainer,
+    InfoText,
     Logo,
     LogoContainer,
     LogoDois,
@@ -19,7 +20,9 @@ import {checkLogin} from "../../utils/login/index.js";
 export default function Login() {
     const [, setIsLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
-    
+    const [info, setInfo] = useState(false);
+    const [infoText, setInfoText] = useState('');
+
     const [isLogin, setIsLogin] = useState(true);
 
     const [login, setLogin] = useState('gpelias');
@@ -41,7 +44,12 @@ export default function Login() {
     const handleEmailChange = ({target: {value}}) => setEmail(value);
     const handlePasswordC1Change = ({target: {value}}) => setPasswordC1(value);
     const handlePasswordC2Change = ({target: {value}}) => setPasswordC2(value);
-    
+
+    const handleInfoChange = (text) => {
+        setInfo(true);
+        setInfoText(text);
+    }
+
     useEffect(() => {
         checkLogin({setIsLogged, setIsLoading}).then();
 
@@ -66,16 +74,29 @@ export default function Login() {
         event.preventDefault();
 
         if (isLogin) {
-            const {data} = await LoginService.login({login, password});
-            window.sessionStorage.setItem('jwtToken', data);
-            navigate('/');
+            try {
+                const {data} = await LoginService.login({login, password});
+                window.sessionStorage.setItem('jwtToken', data);
+                navigate('/');
+            } catch (e) {
+                if (e.status === 401) handleInfoChange('Login ou senha incorreto.');
+            }
         } else {
-            await criarUsuario({
-                email: email,
-                nome: nome,
-                login: user,
-                senha: passwordC1,
-            });
+            try {
+                await criarUsuario({
+                    email: email,
+                    nome: nome,
+                    login: user,
+                    senha: passwordC1,
+                });
+            } catch (e) {
+                if (e.status === 401) {
+                    handleInfoChange('Cadastrado com sucesso');
+                } else {
+                    handleInfoChange('Erro no cadastro');
+                }
+            }
+
             setIsLogin(true);
         }
     };
@@ -102,7 +123,9 @@ export default function Login() {
                                 type="password"
                                 placeholder="Senha"
                             />
-                            <Btn type="submit">Entrar</Btn>
+                            <Btn type="submit">
+                                Entrar
+                            </Btn>
                         </Form>
                     ) : (
                         <Form onSubmit={submit}>
@@ -139,6 +162,7 @@ export default function Login() {
                             <Btn type="submit">Cadastrar-se</Btn>
                         </Form>
                     )}
+                    {info && (<InfoText>{infoText}</InfoText>)}
                     <ToggleText>
                         {isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?'}
                         <ToggleLink onClick={toggleForm}>

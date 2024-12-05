@@ -119,7 +119,7 @@ public class UsuarioService {
                 .build();
     }
 
-    private ShowUsuarioDTO fillShowUsuario(UsuarioEntity usuario) {
+    public ShowUsuarioDTO fillShowUsuario(UsuarioEntity usuario) {
         return ShowUsuarioDTO
                 .builder()
                 .nome(usuario.getNome())
@@ -136,7 +136,7 @@ public class UsuarioService {
                     loginDTO.getLogin(),
                     loginUtil.encryptPassword(loginDTO.getPassword())
             );
-        } catch (NoSuchAlgorithmException ignored) {
+        } catch (Exception ignored) {
         }
 
         if (login) {
